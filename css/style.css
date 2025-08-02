@@ -1,3 +1,15 @@
+
+.header-col {
+  width: 100%;
+}
+
+.intro-col {
+  width: 100%;
+}
+
+.footer-col {
+  width: 100%;
+}
 * {
   box-sizing: border-box;
 }
@@ -147,9 +159,6 @@ body::before {
   padding: 15px 20px;
   vertical-align: middle;
   width: 320px; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .staff-img-td img {
