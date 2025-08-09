@@ -177,6 +177,7 @@ body::before {
   font-style: italic;
   font-weight: 600;
   padding: 20px;
+  margin-top: 40px;
 }
 
 @media (max-width: 768px) {
@@ -301,4 +302,18 @@ body::before {
   margin-bottom: 25px;
   border-bottom: 3px solid #004753;  
   padding-bottom: 10px;
+}
+.artifact-image img {
+  cursor: pointer;
+}
+button {
+  background-color: #004753; 
+  color: #c9f6f2;            
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+button:hover {
+  background-color: #44c2c2; 
 }

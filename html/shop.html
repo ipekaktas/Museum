@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Sakire Ipek Demircan Aktas">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Souvenir Shop – Museum of Deep Sea Mysteries</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col" id="header">
+        <h1>Museum of Deep Sea Mysteries</h1>
+        <nav class="site-nav">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="staff.html">Staff</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <h2 class="section-title">Souvenir Shop</h2>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/navigators-disk-replica.png" alt="Replica of Sunken Navigator’s Disk" title="Bronze disk once said to guide deep-sea explorers." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item001</p>
+          <p><strong>Description:</strong> Sunken Navigator’s Disk – From the Archaeology Collection, this miniature bronze replica recreates the legendary navigation artifact once used by deep-sea explorers.</p>
+          <p><strong>Price:</strong> $19.99</p>
+          <button onclick="addToCart('item001','Sunken Navigator’s Disk')">Add Sunken Navigator’s Disk to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/ceremonial-trident-replica.png" alt="Replica of Ceremonial Trident Head" title="Symbol of maritime power in ancient rites." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item002</p>
+          <p><strong>Description:</strong> Ceremonial Trident Head – From the Archaeology Collection, this detailed bronze replica honors the ceremonial weapon believed to symbolize authority in ancient coastal societies.</p>
+          <p><strong>Price:</strong> $19.99</p>
+          <button onclick="addToCart('item002','Ceremonial Trident Head')">Add Ceremonial Trident Head to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/wavecarved-horn-replica.png" alt="Replica of Wavecarved Horn" title="Ceremonial conch carved to summon sea spirits." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item003</p>
+          <p><strong>Description:</strong> Wavecarved Horn of the Depths – From the Archaeology Collection, this small-scale carved conch replica reflects the original’s use in maritime rituals and seafaring ceremonies.</p>
+          <p><strong>Price:</strong> $29.99</p>
+          <button onclick="addToCart('item003','Wavecarved Horn of the Depths')">Add Wavecarved Horn of the Depths to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/submerged-mask-replica.png" alt="Replica of Ancient Submerged Mask" title="Mask worn in oceanic ancestor ceremonies." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item004</p>
+          <p><strong>Description:</strong> Ancient Submerged Mask – From the Anthropology Collection, this wooden ceremonial mask replica mirrors the original artifact recovered from a submerged ritual site.</p>
+          <p><strong>Price:</strong> $24.99</p>
+          <button onclick="addToCart('item004','Ancient Submerged Mask')">Add Ancient Submerged Mask to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/tribal-necklace-replica.png" alt="Replica of Submerged Tribal Necklace" title="Shells and bone for coastal ritual leaders." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item005</p>
+          <p><strong>Description:</strong> Submerged Tribal Necklace – From the Anthropology Collection, this handcrafted replica features shells and beads inspired by adornments worn in early coastal cultures.</p>
+          <p><strong>Price:</strong> $19.99</p>
+          <button onclick="addToCart('item005','Submerged Tribal Necklace')">Add Submerged Tribal Necklace to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="artifact-container">
+      <div class="artifact-image">
+        <img src="../images/souvenirs/abyssal-headdress-replica.png" alt="Replica of Abyssal Ceremonial Headdress" title="Headdress believed to protect divers in sacred waters." onclick="modalImg.src=this.src; modal.style.display='flex'; modalImg.alt=this.alt;">
+      </div>
+      <div class="artifact-columns">
+        <div class="artifact-col">
+          <p><strong>ID:</strong> item006</p>
+          <p><strong>Description:</strong> Abyssal Ceremonial Headdress – From the Anthropology Collection, this ornate replica showcases the ceremonial regalia used in deep-sea cultural traditions.</p>
+          <p><strong>Price:</strong> $39.99</p>
+          <button onclick="addToCart('item006','Abyssal Ceremonial Headdress')">Add Abyssal Ceremonial Headdress to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal" onclick="modal.style.display='none';" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:9999;">
+      <img id="modalImg" src="../images/souvenirs/placeholder.png" alt="" style="max-width:90%; max-height:90%; border:5px solid white; border-radius:12px;">
+    </div>
+
+    <div class="row">
+      <div class="col" id="footer">
+        <footer>
+          <p><strong>The content on this site was conceived by a human and created by AI. The images were created by AI and curated, edited, reviewed, verified, validated, and augmented by a human.</strong></p>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let modal = document.getElementById("modal");
+    let modalImg = document.getElementById("modalImg");
+    function addToCart(id, name){ alert(`Added ${name} (${id}) to cart`); }
+  </script>
+</body>
+</html>
