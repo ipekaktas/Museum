@@ -1,6 +1,8 @@
 const CART_KEY = 'museumCartV1';
 const TAX_RATE = 0.102;
 const MEMBER_DISCOUNT_RATE = 0.15;
+const DISCOUNT_CHOICE_KEY = 'museumCartDiscountChoice';
+const MEMBER_KEY = 'museumCartIsMember';
 const SHIPPING_RATE = 25.00;
 const VOLUME_TIERS = [
   [0.00,   49.99, 0.00],
@@ -87,6 +89,8 @@ function removeItem(id) {
 
 function clearCart() {
   writeCart([]);
+  clearChoice();
+  writeMember(false);
   if (memberToggle) memberToggle.checked = false;
   render();
 }
@@ -100,19 +104,23 @@ function showSection(sectionId) {
   if (target) target.style.display = 'block';
 }
 
+function readChoice(){ try{return localStorage.getItem(DISCOUNT_CHOICE_KEY)||'';}catch{return '';} }
+function writeChoice(v){ localStorage.setItem(DISCOUNT_CHOICE_KEY,v); }
+function clearChoice(){ localStorage.removeItem(DISCOUNT_CHOICE_KEY); }
+function readMember(){ try{return localStorage.getItem(MEMBER_KEY)==='1';}catch{return false;} }
+function writeMember(v){ localStorage.setItem(MEMBER_KEY, v?'1':'0'); }
+
 function render() {
   itemsDiv   = itemsDiv   || document.getElementById('items');
   summaryPre = summaryPre || document.getElementById('summary');
   emptyMsg   = emptyMsg   || document.getElementById('emptyMsg');
-
- if (!itemsDiv || !summaryPre || !emptyMsg) return;
+  if (!itemsDiv || !summaryPre || !emptyMsg) return;
 
   cart = readCart().filter(it => it && it.qty > 0 && it.unitPrice > 0);
 
   if (cart.length === 0) {
     itemsDiv.hidden = true;
     emptyMsg.hidden = false;
-
     summaryPre.hidden = false;
     summaryPre.textContent = `Hello Shopper, here is your Cart Summary:
 
@@ -133,20 +141,30 @@ ${'Invoice Total:'.padEnd(28)}${money(0).padStart(14)}`;
   volRate   = volumeRate(itemTotal);
 
   memberToggle = memberToggle || document.getElementById('memberToggle');
+  const saved = readChoice();
+  
   const isMember = memberToggle ? memberToggle.checked : false;
-
   applyMember = false;
   applyVolume = false;
 
   if (isMember && volRate > 0) {
-    const choice = (prompt("Only one discount may be applied. Type 'M' for Member or 'V' for Volume:") || '').trim().toUpperCase();
-    if (choice === 'M') applyMember = true;
-    else if (choice === 'V') applyVolume = true;
-    else applyVolume = true;
+    if (saved === 'M') {
+      applyMember = true;
+    } else if (saved === 'V') {
+      applyVolume = true;
+    } else {
+      const choice = (prompt("Only one discount may be applied. Type 'M' for Member or 'V' for Volume:") || '').trim().toUpperCase();
+      if (choice === 'M') { applyMember = true; writeChoice('M'); }
+      else { applyVolume = true; writeChoice('V'); }
+    }
   } else if (isMember) {
+    clearChoice();
     applyMember = true;
   } else if (volRate > 0) {
+    clearChoice();
     applyVolume = true;
+  } else {
+    clearChoice();
   }
 
   memberDiscount   = applyMember ? (itemTotal * MEMBER_DISCOUNT_RATE) : 0;
@@ -182,7 +200,7 @@ ${'Invoice Total:'.padEnd(28,' ')}${money(invoiceTotal).padStart(14,' ')}
     </pre>
   `;
 
-  itemsDiv.innerHTML = linesHTML;   
+  itemsDiv.innerHTML = linesHTML;
   itemsDiv.hidden = false;
   summaryPre.hidden = true;
 }
@@ -239,8 +257,11 @@ document.addEventListener('DOMContentLoaded', () => {
   memberToggle = document.getElementById('memberToggle');
   clearBtn     = document.getElementById('clearBtn');
 
-  if (memberToggle) memberToggle.addEventListener('change', render);
-  if (clearBtn) clearBtn.addEventListener('click', clearCart);
+if (memberToggle) {
+  memberToggle.checked = readMember();
+  memberToggle.addEventListener('change', () => { writeMember(memberToggle.checked); render(); });
+}
+if (clearBtn) clearBtn.addEventListener('click', clearCart);
 
   modal     = document.getElementById('modal');
   modalImg  = document.getElementById('modalImg');
