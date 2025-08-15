@@ -91,6 +91,15 @@ function clearCart() {
   render();
 }
 
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.collection-section');
+  sections.forEach(section => {
+    section.style.display = 'none';
+  });
+  const target = document.getElementById(sectionId);
+  if (target) target.style.display = 'block';
+}
+
 function render() {
   itemsDiv   = itemsDiv   || document.getElementById('items');
   summaryPre = summaryPre || document.getElementById('summary');
