@@ -318,7 +318,6 @@ button:hover {
   background-color: #44c2c2; 
 }
 
-/* Cart line items (align like invoice, match site colors) */
 .cart-lines {
   list-style: none;
   margin: 0 0 12px;
@@ -344,17 +343,110 @@ button:hover {
 }
 
 .cart-line .amount {
-  min-width: 8ch;        /* keeps decimals aligned */
+  min-width: 8ch;        
   text-align: right;
   color: #004753;
 }
 
 #summary {
-  border-top: 2px solid rgba(0, 71, 83, 0.6); /* matches site teal */
+  border-top: 2px solid rgba(0, 71, 83, 0.6); 
   margin-top: 14px;
   padding-top: 12px;
-  background: transparent; /* keep the panel's glass look */
+  background: transparent; 
 }
 
 .cart-lines { margin-bottom: 6px; }
+
+.modal[role="dialog"] {
+  position: fixed;
+  inset: 0;
+  display: none;                
+  justify-content: center;
+  align-items: flex-start;      
+  overflow: auto;
+  padding: 40px 18px;
+  background: rgba(0,0,0,0.65);
+  z-index: 9999;
+}
+
+.modal[role="dialog"] .modal-content {
+  background: rgba(235,255,255,0.96);
+  color: #004753;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,71,83,0.35);
+  max-width: 1100px;
+  width: 100%;
+  padding: 24px 22px;
+  line-height: 1.6;
+}
+
+.modal[role="dialog"] .modal-content h2 {
+  margin-top: 0;
+  font-size: 2.2rem;
+  color: #600000;
+}
+
+.modal[role="dialog"] .close-modal {
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  padding: 6px 10px;
+  background: #004753;
+  color: #c9f6f2;
+  cursor: pointer;
+}
+.modal[role="dialog"] .close-modal:hover { background: #44c2c2; }
+
+.modal[role="dialog"] .modal-content h2 {
+  color: #004753;
+  letter-spacing: 0.5px;       
+  margin-bottom: 12px;
+}
+
+.modal[role="dialog"] .modal-content p {
+  margin: 0 0 0.9rem;          
+}
+
+.modal[role="dialog"] .modal-content em {
+  color: #0b6872;              
+  font-size: 1.05rem;
+}
+
+.modal[role="dialog"] .modal-content blockquote {
+  margin-top: 1rem;            
+  margin-bottom: 1rem;
+}
+
+.modal[role="dialog"] .close-modal {
+  font-size: 18px;             
+  line-height: 1;
+  padding: 8px 12px;           
+  box-shadow: 0 2px 6px rgba(0,71,83,0.25);
+  border: 2px solid rgba(201,246,242,0.6);
+}
+
+.modal[role="dialog"] .close-modal:focus {
+  outline: 3px solid #44c2c2;  
+  outline-offset: 2px;
+}
+
+
+@media (max-width: 640px) {
+  .modal[role="dialog"] { padding: 24px 12px; }
+  .modal[role="dialog"] .modal-content { padding: 18px 16px; }
+  .modal[role="dialog"] .modal-content h2 { font-size: 1.8rem; }
+}
+.collection-tip {
+  font-size: 1.1rem;       
+  font-weight: 600;        
+  color: #003c3c;          
+  text-align: center;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+
+
+
 

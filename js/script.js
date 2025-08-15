@@ -12,58 +12,37 @@ const VOLUME_TIERS = [
 ];
 
 let itemsDiv, summaryPre, emptyMsg, memberToggle, clearBtn;
-let modal, modalImg, shopImages;
-let lastTrigger = null;
-let cart = [];
-let idx = -1;
-let itemTotal = 0;
-let volRate = 0;
-let applyMember = false;
-let applyVolume = false;
-let memberDiscount = 0;
-let volumeDiscount = 0;
-let taxableSubtotal = 0;
-let taxAmount = 0;
-let invoiceTotal = 0;
+let modal, modalImg, shopImages, lastTrigger = null;
 
 function readCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
   catch { return []; }
 }
-
 function writeCart(next) {
   localStorage.setItem(CART_KEY, JSON.stringify(next));
 }
-
 function money(n) {
   const sign = n < 0 ? -1 : 1;
   const s = '$' + Math.abs(n).toFixed(2);
   return sign < 0 ? '(' + s + ')' : s;
 }
-
 function volumeRate(total) {
   for (const [min, max, rate] of VOLUME_TIERS) {
     if (total >= min && total <= max) return rate;
   }
   return 0;
 }
-
 function addToCart(btn) {
   const id        = btn.dataset.id;
   const name      = btn.dataset.name;
   const unitPrice = Number(btn.dataset.price);
   const image     = btn.dataset.image;
-
   if (!id || !name || !unitPrice) return;
 
-  cart = readCart();
-  idx = cart.findIndex(it => it.id === id);
-
-  if (idx >= 0) {
-    cart[idx].qty += 1;
-  } else {
-    cart.push({ id, name, unitPrice, qty: 1, image });
-  }
+  const cart = readCart();
+  const idx = cart.findIndex(it => it.id === id);
+  if (idx >= 0) cart[idx].qty += 1;
+  else cart.push({ id, name, unitPrice, qty: 1, image });
   writeCart(cart);
 
   const card = btn.closest('.souvenir-item');
@@ -75,10 +54,9 @@ function addToCart(btn) {
     }
   }
 }
-
 function removeItem(id) {
-  cart = readCart();
-  idx = cart.findIndex(it => it.id === id);
+  const cart = readCart();
+  const idx = cart.findIndex(it => it.id === id);
   if (idx >= 0) {
     cart[idx].qty -= 1;
     if (cart[idx].qty <= 0) cart.splice(idx, 1);
@@ -86,22 +64,12 @@ function removeItem(id) {
   }
   render();
 }
-
 function clearCart() {
   writeCart([]);
   clearChoice();
   writeMember(false);
   if (memberToggle) memberToggle.checked = false;
   render();
-}
-
-function showSection(sectionId) {
-  const sections = document.querySelectorAll('.collection-section');
-  sections.forEach(section => {
-    section.style.display = 'none';
-  });
-  const target = document.getElementById(sectionId);
-  if (target) target.style.display = 'block';
 }
 
 function readChoice(){ try{return localStorage.getItem(DISCOUNT_CHOICE_KEY)||'';}catch{return '';} }
@@ -114,9 +82,10 @@ function render() {
   itemsDiv   = itemsDiv   || document.getElementById('items');
   summaryPre = summaryPre || document.getElementById('summary');
   emptyMsg   = emptyMsg   || document.getElementById('emptyMsg');
+
   if (!itemsDiv || !summaryPre || !emptyMsg) return;
 
-  cart = readCart().filter(it => it && it.qty > 0 && it.unitPrice > 0);
+  const cart = readCart().filter(it => it && it.qty > 0 && it.unitPrice > 0);
 
   if (cart.length === 0) {
     itemsDiv.hidden = true;
@@ -137,15 +106,14 @@ ${'Invoice Total:'.padEnd(28)}${money(0).padStart(14)}`;
 
   emptyMsg.hidden = true;
 
-  itemTotal = cart.reduce((sum, it) => sum + it.unitPrice * it.qty, 0);
-  volRate   = volumeRate(itemTotal);
+  const itemTotal = cart.reduce((sum, it) => sum + it.unitPrice * it.qty, 0);
+  const volRate   = volumeRate(itemTotal);
 
   memberToggle = memberToggle || document.getElementById('memberToggle');
-  const saved = readChoice();
-  
   const isMember = memberToggle ? memberToggle.checked : false;
-  applyMember = false;
-  applyVolume = false;
+
+  let applyMember = false, applyVolume = false;
+  const saved = readChoice();
 
   if (isMember && volRate > 0) {
     if (saved === 'M') {
@@ -167,11 +135,11 @@ ${'Invoice Total:'.padEnd(28)}${money(0).padStart(14)}`;
     clearChoice();
   }
 
-  memberDiscount   = applyMember ? (itemTotal * MEMBER_DISCOUNT_RATE) : 0;
-  volumeDiscount   = applyVolume ? (itemTotal * volRate) : 0;
-  taxableSubtotal  = itemTotal - memberDiscount - volumeDiscount + SHIPPING_RATE;
-  taxAmount        = taxableSubtotal * TAX_RATE;
-  invoiceTotal     = taxableSubtotal + taxAmount;
+  const memberDiscount   = applyMember ? (itemTotal * MEMBER_DISCOUNT_RATE) : 0;
+  const volumeDiscount   = applyVolume ? (itemTotal * volRate) : 0;
+  const taxableSubtotal  = itemTotal - memberDiscount - volumeDiscount + SHIPPING_RATE;
+  const taxAmount        = taxableSubtotal * TAX_RATE;
+  const invoiceTotal     = taxableSubtotal + taxAmount;
 
   const linesHTML = `
     <ul class="cart-lines">
@@ -205,11 +173,17 @@ ${'Invoice Total:'.padEnd(28,' ')}${money(invoiceTotal).padStart(14,' ')}
   summaryPre.hidden = true;
 }
 
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.collection-section');
+  sections.forEach(section => { section.style.display = 'none'; });
+  const target = document.getElementById(sectionId);
+  if (target) target.style.display = 'block';
+}
+
 function initCollectionsModal() {
   const colModal     = document.querySelector('.modal[role="dialog"]');
   const colModalBody = document.getElementById('modal-body');
   const closeBtn     = colModal ? colModal.querySelector('.close-modal') : null;
-
   if (!colModal || !colModalBody) return;
 
   function openFrom(selector, trigger) {
@@ -221,14 +195,12 @@ function initCollectionsModal() {
     (closeBtn || colModal).focus();
     document.body.style.overflow = 'hidden';
   }
-
   function closeColModal() {
     colModal.style.display = 'none';
     colModalBody.innerHTML = '';
     document.body.style.overflow = '';
     if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
   }
-
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('[data-modal-target]');
     if (trigger) {
@@ -240,7 +212,6 @@ function initCollectionsModal() {
       closeColModal();
     }
   });
-
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && colModal.style.display !== 'none') closeColModal();
   });
@@ -257,14 +228,14 @@ document.addEventListener('DOMContentLoaded', () => {
   memberToggle = document.getElementById('memberToggle');
   clearBtn     = document.getElementById('clearBtn');
 
-if (memberToggle) {
-  memberToggle.checked = readMember();
-  memberToggle.addEventListener('change', () => { writeMember(memberToggle.checked); render(); });
-}
-if (clearBtn) clearBtn.addEventListener('click', clearCart);
+  if (memberToggle) {
+    memberToggle.checked = readMember();
+    memberToggle.addEventListener('change', () => { writeMember(memberToggle.checked); render(); });
+  }
+  if (clearBtn) clearBtn.addEventListener('click', clearCart);
 
-  modal     = document.getElementById('modal');
-  modalImg  = document.getElementById('modalImg');
+  modal      = document.getElementById('modal');
+  modalImg   = document.getElementById('modalImg');
   shopImages = document.querySelectorAll('.shop-modal-image');
 
   if (modal && modalImg && shopImages && shopImages.length > 0) {
@@ -281,6 +252,5 @@ if (clearBtn) clearBtn.addEventListener('click', clearCart);
   }
 
   initCollectionsModal();
-
   render();
 });
