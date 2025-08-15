@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Sakire Ipek Demircan Aktas">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Shopping Cart – Museum of Deep Sea Mysteries</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Tsukimi+Rounded&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col" id="header">
+        <h1>Museum of Deep Sea Mysteries</h1>
+        <nav class="site-nav">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./staff.html">Staff</a></li>
+            <li><a href="./collections.html">Collections</a></li>
+            <li><a href="./shop.html">Shop</a></li>
+            <li><a href="cart.html" class="active">View Cart</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <h2 class="section-title">Shopping Cart</h2>
+
+    <div class="artifact-container">
+      <div class="artifact-columns">
+        <div class="artifact-col">
+
+          <div class="controls">
+            <label><input type="checkbox" id="memberToggle"> Member Discount (15%)</label>
+          </div>
+
+          <div id="emptyMsg" class="empty" hidden>Your cart is empty.</div>
+          <div id="items" hidden></div>
+          <pre id="summary" hidden></pre>
+
+          <div class="actions">
+            <button id="clearBtn">Clear Cart</button>
+            <button onclick="location.href='./shop.html'">Keep Shopping</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col" id="footer">
+        <footer>
+          <p><strong>The content on this site was conceived by a human and created by AI. The images were created by AI and curated, edited, reviewed, validated, and augmented by a human.</strong></p>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
