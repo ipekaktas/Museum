@@ -173,11 +173,12 @@ ${'Invoice Total:'.padEnd(28,' ')}${money(invoiceTotal).padStart(14,' ')}
   summaryPre.hidden = true;
 }
 
-function showSection(sectionId) {
-  const sections = document.querySelectorAll('.collection-section');
-  sections.forEach(section => { section.style.display = 'none'; });
+function showSection(sectionId){
+  document.querySelectorAll('.collection-section').forEach(s => s.style.display = 'none');
   const target = document.getElementById(sectionId);
   if (target) target.style.display = 'block';
+  const tip = document.getElementById('collectionTip');
+  if (tip) tip.style.display = (sectionId === 'histories') ? 'none' : '';
 }
 
 function initCollectionsModal() {
